@@ -1,7 +1,6 @@
-
 package com.vishav.usercrud.user.controller;
 
-import com.vishav.usercrud.user.entity.User;
+import com.vishav.usercrud.user.pojo.UserPojo;
 import com.vishav.usercrud.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,24 +16,24 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserPojo> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserPojo> getUserById(@PathVariable Long id) {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public UserPojo createUser(@RequestBody UserPojo userPojo) {
+        return userService.createUser(userPojo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<UserPojo> updateUser(@PathVariable Long id, @RequestBody UserPojo userDetails) {
         return ResponseEntity.ok(userService.updateUser(id, userDetails));
     }
 

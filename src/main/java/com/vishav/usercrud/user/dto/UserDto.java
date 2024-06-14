@@ -1,12 +1,11 @@
-
-package com.vishav.usercrud.user.pojo;
+package com.vishav.usercrud.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserPojo{
+public class UserDto {
     private Long id;
     private String name;
     private String email;
