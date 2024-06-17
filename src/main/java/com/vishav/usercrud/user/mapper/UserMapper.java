@@ -16,6 +16,7 @@ public class UserMapper {
         pojo.setCountry(user.getCountry());
         pojo.setState(user.getState());
         pojo.setZip(user.getZip());
+        pojo.setPassword(user.getZip());
         return pojo;
     }
 
@@ -28,6 +29,7 @@ public class UserMapper {
         user.setCountry(pojo.getCountry());
         user.setState(pojo.getState());
         user.setZip(pojo.getZip());
+        user.setPassword(pojo.getZip());
         return user;
     }
 }
