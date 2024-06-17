@@ -2,6 +2,7 @@ package com.vishav.usercrud.user.mapper;
 
 import com.vishav.usercrud.user.pojo.UserPojo;
 import com.vishav.usercrud.user.entity.User;
+import com.vishav.usercrud.user.response.UserResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,5 +32,19 @@ public class UserMapper {
         user.setZip(pojo.getZip());
         user.setPassword(pojo.getZip());
         return user;
+    }
+
+    public UserResponse toResponse(User user) {
+        UserResponse response = new UserResponse();
+        response.setId(user.getId());
+        response.setName(user.getName());
+        response.setEmail(user.getEmail());
+        response.setCreatedAt(user.getCreatedAt());
+        response.setUpdatedAt(user.getUpdatedAt());
+        response.setCity(user.getCity());
+        response.setCountry(user.getCountry());
+        response.setState(user.getState());
+        response.setZip(user.getZip());
+        return response;
     }
 }

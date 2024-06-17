@@ -1,8 +1,13 @@
 package com.vishav.usercrud.user.controller;
 
+import com.vishav.usercrud.user.exception.UserAlreadyExistsException;
+import com.vishav.usercrud.user.exception.UserNotFoundException;
+import com.vishav.usercrud.user.mapper.UserMapper;
 import com.vishav.usercrud.user.pojo.UserPojo;
+import com.vishav.usercrud.user.response.UserResponse;
 import com.vishav.usercrud.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +21,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/fetch")
+    @Autowired
+    private UserMapper userMapper;
+
+    @GetMapping("/")
     public List<UserPojo> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<UserResponse> getUserByName(@RequestParam String username) {
+        return userService.getUserByName(username)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @GetMapping("/fetch/{id}")
@@ -29,8 +44,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserPojo createUser(@RequestBody UserPojo userPojo) {
-        return userService.createUser(userPojo);
+    public ResponseEntity<UserPojo> createUser(@RequestBody UserPojo userPojo) {
+        try {
+            UserPojo createdUser = userService.createUser(userPojo);
+            return ResponseEntity.ok(createdUser);
+        } catch (UserAlreadyExistsException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
     }
 
     @PutMapping("/{id}")
