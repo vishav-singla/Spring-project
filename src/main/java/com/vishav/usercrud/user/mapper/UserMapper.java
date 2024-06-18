@@ -12,12 +12,13 @@ public class UserMapper {
         UserPojo pojo = new UserPojo();
         pojo.setId(user.getId());
         pojo.setName(user.getName());
+        pojo.setUsername(user.getUsername()); // Correct mapping for username
         pojo.setEmail(user.getEmail());
         pojo.setCity(user.getCity());
         pojo.setCountry(user.getCountry());
         pojo.setState(user.getState());
         pojo.setZip(user.getZip());
-        pojo.setPassword(user.getZip());
+        pojo.setPassword(user.getPassword()); // Correct mapping for password
         return pojo;
     }
 
@@ -25,12 +26,13 @@ public class UserMapper {
         User user = new User();
         user.setId(pojo.getId());
         user.setName(pojo.getName());
+        user.setUsername(pojo.getUsername()); // Correct mapping for username
         user.setEmail(pojo.getEmail());
         user.setCity(pojo.getCity());
         user.setCountry(pojo.getCountry());
         user.setState(pojo.getState());
         user.setZip(pojo.getZip());
-        user.setPassword(pojo.getZip());
+        user.setPassword(pojo.getPassword()); // Correct mapping for password
         return user;
     }
 
@@ -38,6 +40,7 @@ public class UserMapper {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
         response.setName(user.getName());
+        response.setUsername(user.getUsername()); // Correct mapping for username
         response.setEmail(user.getEmail());
         response.setCreatedAt(user.getCreatedAt());
         response.setUpdatedAt(user.getUpdatedAt());

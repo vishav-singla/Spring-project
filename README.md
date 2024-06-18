@@ -46,6 +46,7 @@ Here are some example cURL commands for the API endpoints:
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{
     "username": "testUser",
+    "name":"test user",
     "email":"test@user.com",
     "password": "testPassword"
 }' "http://localhost:8080/api/user/register"

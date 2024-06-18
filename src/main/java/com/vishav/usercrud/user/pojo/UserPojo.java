@@ -15,4 +15,5 @@ public class UserPojo{
     private String country;
     private String state;
     private String zip;
+    private String username;
 }

@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-
 public class UserController {
 
     @Autowired
@@ -29,9 +28,16 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/fetch")
+    @GetMapping("/fetch/name")
     public ResponseEntity<UserResponse> getUserByName(@RequestParam String username) {
         return userService.getUserByName(username)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new UserNotFoundException(username));
+    }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<UserResponse> getUserByUsername(@RequestParam String username) {
+        return userService.getUserByUsername(username)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new UserNotFoundException(username));
     }
@@ -56,11 +62,5 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserPojo> updateUser(@PathVariable Long id, @RequestBody UserPojo userDetails) {
         return ResponseEntity.ok(userService.updateUser(id, userDetails));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
     }
 }

@@ -9,7 +9,9 @@ import com.vishav.usercrud.user.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
+//import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,10 +38,14 @@ public class UserService {
     }
 
     public Optional<UserResponse> getUserByName(String name) {
-        return userRepository.findByName(name).map(user -> userMapper.toResponse(user));
+        return userRepository.findByName(name).map(userMapper::toResponse);
     }
 
+    public Optional<UserResponse> getUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(userMapper::toResponse);
+    }
 
+    @Transactional
     public UserPojo createUser(UserPojo userPojo) {
         if (userRepository.findByEmail(userPojo.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException(userPojo.getEmail());
@@ -50,10 +56,11 @@ public class UserService {
         return userMapper.toPojo(savedUser);
     }
 
-
+    @Transactional
     public UserPojo updateUser(Long id, UserPojo userDetails) {
         return userRepository.findById(id).map(user -> {
             user.setName(userDetails.getName());
+            user.setUsername(userDetails.getUsername());
             user.setEmail(userDetails.getEmail());
             user.setCity(userDetails.getCity());
             user.setCountry(userDetails.getCountry());
@@ -67,9 +74,5 @@ public class UserService {
             User newUser = userRepository.save(user);
             return userMapper.toPojo(newUser);
         });
-    }
-
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
     }
 }
