@@ -1,6 +1,7 @@
 package com.vishav.usercrud.country.entity;
 
 import com.vishav.usercrud.state.entity.StateEntity;
+import com.vishav.usercrud.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,6 +44,9 @@ public class CountryEntity {
 
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<StateEntity> states;
+
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+    private List<User> users;
 
     @PrePersist
     public void generateCuid() {

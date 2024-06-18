@@ -1,6 +1,7 @@
 
 package com.vishav.usercrud.user.pojo;
 
+import com.vishav.usercrud.country.pojo.CountryPojo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,8 @@ public class UserPojo{
     private String password;
     private String email;
     private String city;
-    private String country;
+//    private String country;
+    private CountryPojo country;
     private String state;
     private String zip;
     private String username;

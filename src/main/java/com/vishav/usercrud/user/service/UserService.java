@@ -63,7 +63,7 @@ public class UserService {
             user.setUsername(userDetails.getUsername());
             user.setEmail(userDetails.getEmail());
             user.setCity(userDetails.getCity());
-            user.setCountry(userDetails.getCountry());
+//            user.setCountry(userDetails.getCountry());
             user.setState(userDetails.getState());
             user.setZip(userDetails.getZip());
             User updatedUser = userRepository.save(user);

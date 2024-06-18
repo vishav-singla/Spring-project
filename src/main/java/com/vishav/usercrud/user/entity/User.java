@@ -1,5 +1,6 @@
 package com.vishav.usercrud.user.entity;
 
+import com.vishav.usercrud.country.entity.CountryEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,7 +43,11 @@ public class User {
     private Date updatedAt;
 
     private String city;
-    private String country;
+//    private String country;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private CountryEntity country;
+
     private String state;
 
     @Column(name = "zip_code")
